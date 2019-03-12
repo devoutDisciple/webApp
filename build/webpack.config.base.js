@@ -12,13 +12,10 @@ const COMMON_0_CSS = new ExtractTextPlugin('common.0.css', {allChunks: true});
 const COMMON_1_CSS = new ExtractTextPlugin('common.1.css', {allChunks: true});
 const COMMON_0_LESS = new ExtractTextPlugin('app.0.css', {allChunks: true});
 const COMMON_1_LESS = new ExtractTextPlugin('app.1.css', {allChunks: true});
-
 const happyThreadPoolLength = os.cpus().length;
-
 const getRealPath = (temPath) => {
 	return path.resolve(__dirname, temPath);
 };
-
 const node_modules = getRealPath('../node_modules');
 
 module.exports = (env = 'development') => {
@@ -147,6 +144,10 @@ module.exports = (env = 'development') => {
 			// alias: {
 			// 	$config: getRealPath('../config/config'),
 			// }
+		},
+		externals: {
+			'react': 'React',
+			'react-dom': 'ReactDOM'
 		},
 		plugins: [
 			COMMON_0_CSS,

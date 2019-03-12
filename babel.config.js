@@ -12,6 +12,7 @@ const presets = [
 	'@babel/react'
 ];
 const plugins = [
+	['import', { libraryName: 'antd-mobile', style: 'css' }], // `style: true` 会加载 less 文件
 	'@babel/plugin-transform-arrow-functions',
 	'@babel/plugin-transform-block-scoped-functions',
 	'@babel/plugin-transform-async-to-generator',

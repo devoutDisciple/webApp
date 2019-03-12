@@ -6,6 +6,7 @@ const merge = require('webpack-merge');
 const webpackBaseConfig = require('./webpack.config.base');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 // var CompressionWebpackPlugin = require('compression-webpack-plugin');// 开启gzip压缩
 // const config = require('../config/webpackConfig');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -13,6 +14,9 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const commandTarget = process.env.npm_lifecycle_event; // npm run start:build 获取的是start:build
 let startAnalyzer = _.includes(_.toLower(commandTarget), 'analyzer');
 console.log(chalk.yellow(`logging: the project is openning analyzer, the startAnalyzer is ${startAnalyzer}`));
+const getRealPath = (temPath) => {
+	return path.resolve(__dirname, temPath);
+};
 
 let plugins = [
 	new CleanWebpackPlugin(path.resolve(__dirname, '../dist'), {
@@ -45,7 +49,11 @@ let plugins = [
 	new webpack.optimize.LimitChunkCountPlugin({
 		maxChunks: 5, // Must be greater than or equal to one
 		minChunkSize: 1000
-	}),
+    }),
+    new CopyWebpackPlugin([
+		{ from: getRealPath('../node_modules/react/umd/react.production.min.js'), to: getRealPath('../dist/react.production.min.js') },
+		{ from: getRealPath('../node_modules/react-dom/umd/react-dom.production.min.js'), to: getRealPath('../dist/react-dom.production.min.js') },
+	]),
 	// new CompressionWebpackPlugin(),
 	// 打包moment.js的中文，防止local全部打包
 	new webpack.ContextReplacementPlugin(/moment[/\\]locale$/,/zh-cn/),

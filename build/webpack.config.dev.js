@@ -4,8 +4,11 @@ const chalk = require('chalk');
 const config = require('../config/webpackConfig');
 const webpackBaseConfig = require('./webpack.config.base');
 const _ = require('lodash');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const generateDll = require('../utils/generateDll');
-
+const getRealPath = (temPath) => {
+	return path.resolve(__dirname, temPath);
+};
 generateDll();
 
 let baseConfig = webpackBaseConfig('development');
@@ -30,6 +33,10 @@ let devPlugins = [
 		// name: '[name]_library',
 		manifest: require('../dist/manifest.json'),
 	}),
+	new CopyWebpackPlugin([
+		{ from: getRealPath('../node_modules/react/umd/react.production.min.js'), to: getRealPath('../dist/react.production.min.js') },
+		{ from: getRealPath('../node_modules/react-dom/umd/react-dom.production.min.js'), to: getRealPath('../dist/react-dom.production.min.js') },
+	]),
 	/*eslint-disable*/
 	new webpack.DefinePlugin({
 		"process.env.NODE_ENV": JSON.stringify("development"),// 一定要用json.stringify，如果是单引号的'development',不正确，是定义不了process.env.NODE_ENV的
