@@ -8,9 +8,12 @@ class App extends React.Component{
 	}
 
 	render() {
-		console.log(this.props);
 		return (
-			<div><Button type='primary' onClick={this.props.todoClick}>{this.props.todos.name}</Button></div>
+			<div>
+				<Button type='primary' onClick={this.props.todoClick}>
+					{this.props.todos.name}
+				</Button>
+			</div>
 		);
 	}
 }

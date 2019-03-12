@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import App from './App';
+import {selectSubreddit} from './action/test';
 const mapStateToProps = state => {
 	return {
 		todos: state.test1
@@ -9,10 +10,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		todoClick: () => {
-			dispatch({
-				type: 'hello',
-				name: 'zhangzhen'
-			});
+			dispatch(selectSubreddit(Math.random() > 0.5 ? 'zhangzhen' : 'wangzi'));
 		}
 	};
 };
