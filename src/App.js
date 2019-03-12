@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button } from 'antd-mobile';
+import PropTypes from 'prop-types';
 
-export default class App extends React.Component{
+class App extends React.Component{
 	constructor(props) {
 		super(props);
 	}
@@ -9,7 +10,14 @@ export default class App extends React.Component{
 	render() {
 		console.log(this.props);
 		return (
-			<div><Button type='primary'>{this.props.todos.name}</Button></div>
+			<div><Button type='primary' onClick={this.props.todoClick}>{this.props.todos.name}</Button></div>
 		);
 	}
 }
+
+App.propTypes = {
+	todos: PropTypes.object.isRequired,
+	todoClick: PropTypes.object.isRequired
+};
+
+export default App;

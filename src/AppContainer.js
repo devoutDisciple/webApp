@@ -8,10 +8,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onTodoClick: age => {
+		todoClick: age => {
 			dispatch({
 				type: 'hello',
-				age: age
+				name: 'zhangzhen'
 			});
 		}
 	};
